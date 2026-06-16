@@ -143,7 +143,9 @@ if __name__ == "__main__":
     print(f"a * 3 = {a * 3}")
     print(f"a · b = {a.dot(b)}")
     print(f"|a| = {a.magnitude():.4f}")
+    print(f"|b| = {b.magnitude():.4f}")
     print(f"â (normalized) = {a.normalize()}")
+    print(f"b (normalized) = {b.normalize()}")
     print(f"cosine_similarity(a, b) = {a.cosine_similarity(b):.4f}")
 
     print("\n=== Matrices ===")
