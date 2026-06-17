@@ -25,6 +25,7 @@ Total estimated time: ~314 hours, at your own pace.
 | 11 | Linux for AI | ✅ | ~45 min |
 | 12 | Debugging & Profiling | ✅ | ~75 min |
 
+
 ## Phase 1: Math Foundations — ✅ (~23 hours)
 
 | # | Lesson | Status | Est. |

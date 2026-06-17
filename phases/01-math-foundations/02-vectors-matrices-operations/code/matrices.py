@@ -168,155 +168,116 @@ def relu_matrix(m):
 
 def demo_basic_operations():
     print("=" * 60)
-    print("BASIC MATRIX OPERATIONS")
+    print("BASIC MATRIX OPERATIONS (OPERASI DASAR MATRIKS)")
     print("=" * 60)
 
     A = Matrix([[1, 2], [3, 4]])
     B = Matrix([[5, 6], [7, 8]])
 
-    print("\nA =")
+    print("\n[MATRIKS AWAL]")
+    print("Kita memiliki dua matriks 2x2. Matriks adalah mesin yang bisa memindahkan atau mengubah titik koordinat di dalam ruang.")
+    print("A =")
     print(A)
     print("\nB =")
     print(B)
 
-    print("\nA + B =")
+    print("\n[1] PENJUMLAHAN (A + B)")
+    print("Penjelasan: Operasi 'element-wise'. Kita menjumlahkan elemen di posisi yang sama (Kiri atas + Kiri atas, dst).")
+    print("Hasil A + B =")
     print(A + B)
 
-    print("\nA - B =")
+    print("\n[2] PENGURANGAN (A - B)")
+    print("Penjelasan: Sama seperti penjumlahan, kita mengurangkan elemen yang posisinya bersesuaian.")
+    print("Hasil A - B =")
     print(A - B)
 
-    print("\nA * 3 (scalar) =")
+    print("\n[3] PERKALIAN SKALAR (A * 3)")
+    print("Penjelasan: Skalar adalah angka tunggal. Di sini kita mengalikan SETIAP elemen di dalam Matriks A dengan angka 3.")
+    print("Hasil A * 3 =")
     print(A.scalar_multiply(3))
 
-    print("\nA * B (element-wise) =")
+    print("\n[4] PERKALIAN ELEMENT-WISE (A * B)")
+    print("Penjelasan: JANGAN TERTUKAR! Ini HANYA mengalikan angka yang posisinya sama persis. Syarat mutlak: dimensi matriks harus sama.")
+    print("Hasil A * B (element-wise) =")
     print(A.element_wise_multiply(B))
 
-    print("\nA @ B (matrix multiply) =")
+    print("\n[5] PERKALIAN MATRIKS / DOT PRODUCT (A @ B)")
+    print("Penjelasan: Ini adalah transformasi yang sesungguhnya di dalam AI. Kita mengalikan setiap BARIS pada Matriks A dengan setiap KOLOM pada Matriks B.")
+    print("Hasil A @ B (matrix multiply) =")
     print(A @ B)
 
-    print("\nA^T =")
+    print("\n[6] TRANSPOSE (A^T)")
+    print("Penjelasan: Memutar matriks. Baris mendatar diubah menjadi kolom berdiri, dan sebaliknya. Sangat penting saat AI melakukan 'belajar' (Backpropagation).")
+    print("Hasil A^T =")
     print(A.T)
 
 
 def demo_determinant_inverse():
     print("\n" + "=" * 60)
-    print("DETERMINANT AND INVERSE")
+    print("DETERMINANT AND INVERSE (DETERMINAN & INVERS)")
     print("=" * 60)
 
     A = Matrix([[4, 7], [2, 6]])
-    print("\nA =")
+    print("\nMatriks A =")
     print(A)
-    print(f"\ndet(A) = {A.determinant()}")
+    
+    print("\n[1] DETERMINAN")
+    print("Penjelasan: Sebuah angka yang mengukur seberapa besar matriks ini mengubah skala luas area/volume. Jika nol, dimensinya hancur (kempis).")
+    print(f"Hasil det(A) = {A.determinant()}")
 
+    print("\n[2] INVERS MATRIKS (A^-1)")
+    print("Penjelasan: Matriks kebalikan. Jika Matriks A memutar objek ke kanan, Invers akan memutarnya kembali ke kiri (membatalkan transformasi).")
     A_inv = A.inverse_2x2()
-    print("\nA^-1 =")
+    print("Hasil A^-1 =")
     print(A_inv)
 
-    print("\nA @ A^-1 (should be identity) =")
+    print("\n[3] PEMBUKTIAN INVERS (A @ A^-1)")
+    print("Penjelasan: Jika sebuah matriks dikalikan dengan inversnya, hasilnya PASTI Matriks Identitas (versi 'Angka 1' di dunia matriks).")
+    print("Hasil A @ A^-1 =")
     print(A @ A_inv)
-
-    I = Matrix.identity(3)
-    print("\nIdentity 3x3 =")
-    print(I)
 
 
 def demo_broadcasting():
     print("\n" + "=" * 60)
-    print("BROADCASTING")
+    print("BROADCASTING (KEAJAIBAN DIMENSI)")
     print("=" * 60)
 
     output = Matrix([[1, 2, 3], [4, 5, 6]])
     bias = Matrix([[10, 20, 30]])
 
-    print("\nOutput =")
+    print("\nMatriks Output (2x3):")
     print(output)
-    print("\nBias =")
+    print("\nVektor Bias (1x3):")
     print(bias)
-    print("\nOutput + Bias (broadcast) =")
+    
+    print("\nPenjelasan: Secara matematika murni, ukuran 2x3 tidak bisa dijumlahkan dengan 1x3. Namun, komputer menggunakan 'Broadcasting'. Vektor Bias secara otomatis diduplikasi (diregangkan) ke setiap baris agar ukurannya pas sebelum dijumlahkan.")
+    print("Hasil Output + Bias =")
     print(output + bias)
-
-
-def demo_neural_network_layer():
-    print("\n" + "=" * 60)
-    print("NEURAL NETWORK FORWARD PASS")
-    print("=" * 60)
-
-    random.seed(42)
-
-    input_size = 3
-    hidden_size = 4
-    output_size = 2
-
-    x = Matrix([[0.5], [0.8], [0.2]])
-    W1 = Matrix.random(hidden_size, input_size)
-    b1 = Matrix([[0.0]] * hidden_size)
-    W2 = Matrix.random(output_size, hidden_size)
-    b2 = Matrix([[0.0]] * output_size)
-
-    print(f"\nInput x: {x.shape}")
-    print(f"W1: {W1.shape}")
-    print(f"W2: {W2.shape}")
-
-    z1 = (W1 @ x) + b1
-    h1 = relu_matrix(z1)
-    print(f"\nHidden layer pre-activation z1: {z1.shape}")
-    print(z1)
-    print(f"\nHidden layer post-ReLU h1: {h1.shape}")
-    print(h1)
-
-    z2 = (W2 @ h1) + b2
-    print(f"\nOutput z2: {z2.shape}")
-    print(z2)
-
-    print("\nThis is a complete 2-layer neural network forward pass.")
-    print("Layer 1: (4x3) @ (3x1) + (4x1) -> (4x1) -> ReLU -> (4x1)")
-    print("Layer 2: (2x4) @ (4x1) + (2x1) -> (2x1)")
 
 
 def demo_vectors():
     print("\n" + "=" * 60)
-    print("VECTOR OPERATIONS")
+    print("VECTOR OPERATIONS (OPERASI VEKTOR)")
     print("=" * 60)
 
     v = Vector([3, 4])
     w = Vector([1, 2])
 
-    print(f"\nv = {v}")
+    print("\nKita memiliki Vektor v (titik koordinat 3,4) dan Vektor w (titik koordinat 1,2).")
+    print(f"v = {v}")
     print(f"w = {w}")
-    print(f"v + w = {v + w}")
-    print(f"v - w = {v - w}")
-    print(f"v * 2 = {v * 2}")
-    print(f"v . w = {v.dot(w)}")
-    print(f"|v| = {v.magnitude()}")
-    print(f"v normalized = {v.normalize()}")
-    print(f"|v normalized| = {v.normalize().magnitude()}")
-
-
-def demo_weight_matrix_intuition():
-    print("\n" + "=" * 60)
-    print("WEIGHT MATRIX INTUITION")
-    print("=" * 60)
-
-    print("\nA weight matrix transforms input features into output features.")
-    print("Each row extracts one pattern from the input.\n")
-
-    W = Matrix([
-        [1.0, 0.0, 0.0],
-        [0.0, 1.0, 0.0],
-        [0.5, 0.5, 0.0],
-    ])
-    x = Matrix([[0.8], [0.6], [0.1]])
-
-    print("Weight matrix W (3 detectors, 3 inputs):")
-    print(W)
-    print("\nInput x:")
-    print(x)
-    print("\nW @ x =")
-    result = W @ x
-    print(result)
-    print("\nRow 0 of W = [1, 0, 0]: copies input feature 0")
-    print("Row 1 of W = [0, 1, 0]: copies input feature 1")
-    print("Row 2 of W = [0.5, 0.5, 0]: averages features 0 and 1")
+    
+    print("\n[1] MAGNITUDO (PANJANG VEKTOR)")
+    print("Penjelasan: Jarak garis lurus dari titik asal (0,0) ke titik koordinat vektor (menggunakan Teorema Pythagoras).")
+    print(f"Panjang |v| = {v.magnitude()}")
+    
+    print("\n[2] DOT PRODUCT")
+    print("Penjelasan: Mengukur seberapa searah dua vektor. Semakin besar nilainya, semakin mirip arah kedua vektor tersebut.")
+    print(f"Hasil v . w = {v.dot(w)}")
+    
+    print("\n[3] NORMALISASI")
+    print("Penjelasan: Memendekkan atau memanjangkan vektor agar panjangnya tepat 1, tapi arahnya tetap sama (Unit Vector).")
+    print(f"Hasil Normalisasi v = {v.normalize()}")
 
 
 if __name__ == "__main__":
@@ -324,5 +285,3 @@ if __name__ == "__main__":
     demo_basic_operations()
     demo_determinant_inverse()
     demo_broadcasting()
-    demo_weight_matrix_intuition()
-    demo_neural_network_layer()
